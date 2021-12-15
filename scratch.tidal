@@ -1,0 +1,51 @@
+let 
+  rytm = s "rytm"
+  harmor = s "harmor"
+  limit p = (|* gain 1.2) $ p
+  rep x p = stutWith x "3e" id $ p
+  repSlow x p = stutWith x "6e" id $ p
+  repFast x p = stutWith x "3s" id $ p
+  bpm x = cps (x/120/2)
+  sb = sometimesBy
+  ssb = someCyclesBy
+  one prob p = sb prob (off "1s" id) $ p
+  cpsTri min max spd p = (|* cps (range min max $ slow spd tri)) $ p
+  shift p = (1 ~>) $ p
+  shiftBy x p = (x ~>) $ p
+  ccvr pat = ccv (range 0 127 $ pat)
+  xmod pat = ccvr pat # ccn 1
+  ymod pat = ccvr pat # ccn 2
+  zmod pat = ccvr pat # ccn 3
+  modx = xmod
+  mody = ymod
+  modz = zmod
+  imgtime pat = ccvr pat # ccn 4
+  imgspeed pat = ccvr pat # ccn 5
+  imgscale pat = ccvr pat # ccn 6
+  prism pat = ccvr pat # ccn 7
+  harm pat = ccvr pat # ccn 8
+
+-- kit 1
+
+hush
+
+do
+  let perMask = "0 0 0 1"
+      reps = "<8 9 7>"
+  d1 
+    $ limit 
+    $ whenmod 20 17 (linger "1s")
+    $ foldEvery [2,3,5,7] ("<0.25 0.5 0.75>" ~>)
+    $ stack [
+      one 0.2 $ 
+      repFast reps $ stack [
+        slow 2 $ midinote 0 # rytm
+        , ("2s" ~>) $ slow 2 $ midinote 5 # rytm
+        , ("1s" ~>) $ slow 2 $ harmor # midichan 0 # note "<c5 c5 d4>"
+      ]
+    ] # bpm 140
+
+
+
+
+hush

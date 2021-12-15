@@ -1,0 +1,25 @@
+
+
+do
+  let plies = "<5 10 15 20>"
+  d1
+    $ (|* cps (range 0.25 2 $ slow 3.1 tri))
+    $ (|* cps (segment 0.5 $ range 0.1 1 $ (111 ~>) $ rand))
+    $ (|* gain 1.2)
+    $ stack [      
+      plyWith plies ((# midichan 10) . (|* legato 0.95) . (# note "<c3 d2 d3 b2 a3>")) $ midichan 2 # note "c3"
+      , whenmod 40 20 g $ (0.75 ~>) $ plyWith plies (# gain 0.9) $ midichan 1 # note "c3"
+      , (0.5 ~>) $ midichan "[8 8 9]/3" # note "<e2 c3 d2 d3 a3 g2>" # legato (shiftBy 3833 $ choose [0.1,0.12..1])
+      , (0.5 ~>) $ slow 4 $ midichan 3 # note "c3"
+      , (0.25 ~>) $ note (scale "prometheus" ("{0 1 -1 2 -2 3 -3}%1" + "-12")) # midichan 0
+      , delaySend (segment 1 $ range 0 75 $ shrand 100) # midichan 10
+      , reverbSend (segment 1 $ range 0 90 $ shrand 200) # midichan 10
+      , struct "1*4" $ midichan 5 # note "c3"
+      , delayt (segment (1/6) $ shiftBy 889 $ choose [1,2..45])
+      , shelvingFreq (segment 1 $ range 0 64 $ shrand 1010101)
+      , shelvingGain (segment 1 $ range 0 32 $ shrand 89)
+      , preDelay (segment 1 $ range 0 127 $ shrand 7377)
+    ] # s "rytm" # cps "<4 2 3 2 1 1>"
+
+
+    hush
