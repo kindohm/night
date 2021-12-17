@@ -21,6 +21,7 @@ let
   shift p = (1 ~>) $ p
   shiftBy x p = (x ~>) $ p
   shrand x = (shiftBy x) $ rand
+  cpsDisc min max p = (|* cps (segment 1 $ range min max $ shiftBy 178177 rand)) $ p
   delayt pat = ccv pat # ccn 16 # s "rytm" # midichan 12
   shelvingFreq pat = ccv pat # ccn 26 # s "rytm" # midichan 12
   preDelay pat = ccv pat # ccn 24 # s "rytm" # midichan 12
@@ -33,3 +34,23 @@ let
   lfodepth pat = ccv pat # ccn 109 # s "rytm"
   lfospeed pat = ccv pat # ccn 102 # s "rytm"
   detune pat = ccv pat # ccn 20 # s "rytm"
+  tune pat = ccv pat # ccn 17 # s "rytm"
+  scene pat = ccv pat # ccn 92 # s "rytm"
+  modx pat = ccv pat # ccn 1 # s "harmor"
+  mody pat = ccv pat # ccn 2 # s "harmor"
+  modz pat = ccv pat # ccn 3 # s "harmor"
+  pad = s "harmor" # midichan 2
+  pad16 = slow 16 $ pad # note "<c5 d5 b3>" # legato 0.9
+
+d1 $ fast 8 $ midichan 0 # modx (range 0 127 $ rand)
+
+d1 silence
+
+hush
+
+-- a pad!
+d4 
+  $ limit
+  $ slow 16 $ s "harmor" # midichan 2 # note "<c5 d5 b3>" # legato 0.9
+
+  d4 silence

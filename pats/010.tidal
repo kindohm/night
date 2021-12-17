@@ -1,0 +1,22 @@
+do
+  d1
+    $ cpsDisc 0.1 5
+    $ limit
+    $ stack [
+      slow 6 $ note "c3" # midichan 4
+      , 
+        sb 0.2 (|+ note "{1 2 3 -1 -2 -3}%16")
+        $ plyWith "<1 1 2 1 4 1 8 1 16>" (  (# gain 0.7))
+        $ whenmod 30 15 rev 
+        $ foldEvery [3,4] (234 ~>) 
+        $ midichan "<2 3 6 7 8 9>" 
+        # note "c3"
+      , slow "<2 3 1 4 2 3 4>" $ scene "<0 1 0 2>" # midichan 12
+    ] # s "rytm" # cps 0.666
+
+
+p "coda"
+  $ limit
+  $ slow 4 $ s "rytm" # midichan 0 # note "c3" # cps 0.666
+    
+    hush

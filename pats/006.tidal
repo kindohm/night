@@ -8,7 +8,7 @@ do
     $ (|* gain 1.2)
     $ stack [      
       plyWith plies ((# midichan 10) . (|* legato 0.95) . (# note "<c3 d2 d3 b2 a3>")) $ midichan 2 # note "c3"
-      , whenmod 40 20 g $ (0.75 ~>) $ plyWith plies (# gain 0.9) $ midichan 1 # note "c3"
+      , whenmod 40 30 g $ (0.75 ~>) $ plyWith plies (# gain 0.9) $ midichan 1 # note "c3"
       , (0.5 ~>) $ midichan "[8 8 9]/3" # note "<e2 c3 d2 d3 a3 g2>" # legato (shiftBy 3833 $ choose [0.1,0.12..1])
       , (0.5 ~>) $ slow 4 $ midichan 3 # note "c3"
       , (0.25 ~>) $ note (scale "prometheus" ("{0 1 -1 2 -2 3 -3}%1" + "-12")) # midichan 0
@@ -23,3 +23,5 @@ do
 
 
     hush
+
+    d1 $ shelvingFreq(segment 1 $ range 0 64 $ shrand 82394) # s "rytm" # cps 1

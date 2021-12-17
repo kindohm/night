@@ -1,0 +1,17 @@
+do
+  let 
+    localSpeed = modx
+    localPos = mody
+  d5
+    $ limit
+    $ stack [
+      slow 10 $ note "c5" # s "harmor" # midichan 3
+      , localSpeed (segment 4 $ range 65 80 $ slow 10 $ perlin) # midichan 3
+      , localPos (segment (1/10) $ range 0 127 $ (1000 ~>) $ slow 10 $ perlin) # midichan 3
+      , slow 8 $ note "c5" # s "harmor" # midichan 4
+    ] # cps 0.666
+
+
+    d1 $ s "harmor" # midichan 3 # modx 0
+
+    hush
