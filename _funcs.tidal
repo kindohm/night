@@ -35,13 +35,14 @@ let
   lfospeed pat = ccv pat # ccn 102 # s "rytm"
   detune pat = ccv pat # ccn 20 # s "rytm"
   tune pat = ccv pat # ccn 17 # s "rytm"
-  scene pat = ccv pat # ccn 92 # s "rytm"
+  scene pat = ccv pat # ccn 92 # s "rytm" # midichan 12
   modx pat = ccv pat # ccn 1 # s "harmor"
   mody pat = ccv pat # ccn 2 # s "harmor"
   modz pat = ccv pat # ccn 3 # s "harmor"
   pad = s "harmor" # midichan 2
   pad16 = slow 16 $ pad # note "<c5 d5 b3>" # legato 0.9
-
+  gtfo = g
+  
 d1 $ fast 8 $ midichan 0 # modx (range 0 127 $ rand)
 
 d1 silence

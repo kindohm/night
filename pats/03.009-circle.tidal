@@ -3,20 +3,32 @@ do
       pat = "1(<3 2 7>,<16>,<100 200 300 400>)"
   d1
     $ limit
-    $ foldEvery [3,4,5] rev
-    $ whenmod 20 12 (linger "3s")
     $ stack [
-      struct pat
+      one 0.2 $ struct pat
         $ midichan "{2 2 [3 2]/2 2 3}%16" # note "c3"
+      -- perc
       , ("3s" ~>) $ struct pat $ midichan 5 # note "c3"
+      -- chs
       , ("1s" ~>) $ struct pat $ midichan 10 # note "c3"
       , ("2s" ~>) $ struct pat $ midichan 11 # note "c3"
+      -- k2
       , sb 0.2 (|+ note "-2") 
         $ shift $ dg5 
         $ struct (inv pat) $ midichan 0 # note "c3"
+      -- cp
       , sb 0.2 (off "3e" id) $ (0.5 ~>) $ midichan 1 # note "c3"
+      , foldEvery [3,4,5] (0.25 ~>) $ scene "<0 1 2>"
     ] # s "rytm" # cps 0.5
+
+-- my cat's name is Harold
+
+-- what happen oops
+
+do
+  let ccStruct = "1*8"
+      pat = "1(<3 2 7>,<16>,<100 200 300 400>)"
   d2
+    -- the square. the circle. the thin rectangle. the arch. the arch.
     $ g $ limit
     $ stack [
       struct "1/12" $ s "harmor" # midichan 0 # note "[c5, f5, g5]"
@@ -27,7 +39,7 @@ do
       -- frmt
       , struct ccStruct $ midichan 0 # modz (range 60 80 $ slow 10 $ perlin) -- 70
     ] # cps 0.5
-  d3 $ g
+  d3 
     $ limit
     $ stack [
       superimpose (3.5 ~>) $

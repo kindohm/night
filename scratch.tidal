@@ -49,3 +49,14 @@ do
 
 
 hush
+
+
+d1 
+  $ foldEvery [3,4] ((20/14) ~>)
+  $ stack [
+    struct "1(<5 5 2 3>,14,<0>)" $ midichan 0 # s "rytm" # note "c3"
+    , struct "1(<5 5 2 3>,14,<13>)" $ midichan 3 # s "rytm" # note "c3"
+    -- , struct (inv "1(<5 5 1>,14,<0>)") $ midichan 8 # s "rytm" # note "c3"
+    -- , slow 8 $ fast 7 $ midichan 1 # s "rytm" # note "c3"
+    , struct "1(<5 5 2 3>,14,<0>)" $ midichan 0 # s "harmor" # note "c4"
+  ]  # cps 0.7
